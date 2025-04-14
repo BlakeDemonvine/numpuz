@@ -1,0 +1,143 @@
+/* 讓整個 body 成為 Flex 容器，並置中子元素 */
+body {
+  display: flex;
+  justify-content: center;   /* 水平置中 */
+  align-items: center;       /* 垂直置中 */
+  height: 100vh;             /* 讓 body 高度等於視窗高度 */
+  margin: 0;
+  background-color: #e0e0e0; /* 可選：整體背景色 */
+  font-family: 'Arial', sans-serif;
+}
+
+/* 主要內容區塊的樣式 */
+#settingPage {
+  display: flex;
+  flex-direction: column;     /* 垂直排列 */
+  justify-content: center;    /* 垂直置中 */
+  align-items: center;        /* 水平置中 */
+  padding: 30px;
+  background-color: #f8f8f8;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;         /* 水平對齊內容 */
+}
+
+/* 讓 input 輸入框寬度自適應 */
+input[type="number"] {
+  width: 250px;  /* 可根據需要調整寬度 */
+  padding: 8px;
+  margin-top: 5px;
+}
+
+#settingPage button{
+  background-color: rgb(115, 115, 239);
+  border-radius: 15px;
+  width: 100px;
+  height: 50px;
+  font-size: 100%;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#settingPage button:hover {
+  background-color: rgb(93, 93, 212);
+  transform: scale(1.05);
+}
+
+#settingPage button:active {
+  background-color: rgb(75, 75, 179);
+  transform: scale(0.98);
+}
+
+#wrong{
+  color: red;
+}
+
+#gamePage {
+  display: grid;
+  grid-gap: 10px;  /* 每個按鈕之間的間距 */
+  justify-items: center; /* 水平置中每個按鈕 */
+  align-items: center;  /* 垂直置中每個按鈕 */
+  margin-top: 20px;  /* 這樣可以防止 timer 和按鈕重疊 */
+}
+
+/* 按鈕樣式 */
+#gamePage button {
+  width: 50px;  /* 每個按鈕的寬度 */
+  height: 50px; /* 每個按鈕的高度 */
+  font-size: 20px;  /* 按鈕文字大小 */
+  background-color: #4CAF50;  /* 按鈕背景顏色 */
+  color: white;  /* 按鈕文字顏色 */
+  border: none;  /* 去掉邊框 */
+  border-radius: 5px;  /* 按鈕邊角圓滑 */
+  cursor: pointer;  /* 改變鼠標樣式 */
+  transition: background-color 0.3s ease; /* 按鈕的顏色過渡效果 */
+}
+
+/* 按鈕懸停時改變顏色 */
+#gamePage button:hover {
+  background-color: #45a049;
+}
+
+/* 按鈕點擊時改變顏色 */
+#gamePage button:active {
+  background-color: #397d3a;
+}
+
+#gamePage button.empty {
+  background-color: #bdcfbd;
+}
+
+#gamePage button.gold {
+  background-color: #f0dc6e;
+}
+
+#winScreen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Arial', sans-serif;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+#winScreen h1 {
+  font-size: 36px;
+  color: #ff9800;
+  margin-bottom: 20px;
+}
+
+#winScreen button {
+  padding: 15px 30px;
+  font-size: 18px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#winScreen button:hover {
+  background-color: #45a049;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+#try {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 確保整個區塊能夠填滿螢幕高度 */
+}
+
+
+#timer{
+  font-size: 25px;
+}
