@@ -46,39 +46,86 @@ function updateDisplay(str) {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-let arr = [];
-let blank = [0,0];
+function getShuffleSteps(n, m) {
+  const area = n * m;
+  const stepMin = Math.floor(area * 1.5);
+  const stepMax = Math.floor(area * 2.5);
+  return (Math.floor(Math.random() * (stepMax - stepMin + 1)) + stepMin)*1000;
+}
+
 let k;
 let l;
+let arr = [];
+let blank = [0,0];
+
+function getRandomStepOffset(x,y,n) {
+  let options = [-1, 1, -2, 2];
+  if(x==0){
+    options = options.filter(num => num !== 1);
+  }
+  else if(x==l-1){
+    options = options.filter(num => num !== -1);
+  }
+  if(y==0){
+    options = options.filter(num => num !== 2);
+  }
+  else if(y==k-1){
+    options = options.filter(num => num !== -2);
+  }
+  options = options.filter(num => num !== -1*n);
+  const index = Math.floor(Math.random() * options.length);
+  return options[index];
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function scramble(n, m) {
   arr = [];
-  let numbers = [];
-  let idx = 0;
+  blank = [n-1,m-1];
 
-  for (let i = 1; i < n * m; i++) {
-    numbers.push(i);
-  }
-
-  for (let i = numbers.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [numbers[i], numbers[j]] = [numbers[j], numbers[i]]; // 交換
-  }
-
-  idx = 0;
   for (let i = 0; i < n; i++) {
     arr[i] = [];
     for (let j = 0; j < m; j++) {
-      if (i == n - 1 && j == m - 1) {
-        arr[i][j] = -1;
-      } else {
-        arr[i][j] = numbers[idx];
-        idx++;
-      }
+      arr[i][j] = n*i+j+1;
     }
   }
-  blank = [n-1,m-1];
+  arr[n-1][m-1] = -1;
+  const steps = getShuffleSteps(n, m);
+  let lastStep = 0;
+  for(let i = 0 ; i<steps ; i++){
+    lastStep = getRandomStepOffset(blank[0],blank[1],lastStep);
+    if(lastStep == 1){
+      arr[blank[0]][blank[1]] = arr[blank[0]-1][blank[1]];
+      arr[blank[0]-1][blank[1]] = -1;
+      blank[0]--;
+    }
+    else if(lastStep == -1){
+      arr[blank[0]][blank[1]] = arr[blank[0]+1][blank[1]];
+      arr[blank[0]+1][blank[1]] = -1;
+      blank[0]++;
+    }
+    else if(lastStep == 2){
+      arr[blank[0]][blank[1]] = arr[blank[0]][blank[1]-1];
+      arr[blank[0]][blank[1]-1] = -1;
+      blank[1]--;
+    }
+    else if(lastStep == -2){
+      arr[blank[0]][blank[1]] = arr[blank[0]][blank[1]+1];
+      arr[blank[0]][blank[1]+1] = -1;
+      blank[1]++;
+    }
+  }
+  while (blank[0] < n - 1) {
+    arr[blank[0]][blank[1]] = arr[blank[0] + 1][blank[1]];
+    arr[blank[0] + 1][blank[1]] = -1;
+    blank[0]++;
+  }
+  
+  while (blank[1] < m - 1) {
+    arr[blank[0]][blank[1]] = arr[blank[0]][blank[1] + 1];
+    arr[blank[0]][blank[1] + 1] = -1;
+    blank[1]++;
+  }
+  
 }
 
 function loadPage(page) {
