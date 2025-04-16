@@ -85,7 +85,7 @@ function scramble(n, m) {
   for (let i = 0; i < n; i++) {
     arr[i] = [];
     for (let j = 0; j < m; j++) {
-      arr[i][j] = n*i+j+1;
+      arr[i][j] = m*i+j+1;
     }
   }
   arr[n-1][m-1] = -1;
